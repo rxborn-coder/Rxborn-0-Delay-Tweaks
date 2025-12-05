@@ -1,9 +1,9 @@
 @echo off
 ::  ╔═══════════════════════════════════════════════════════════════╗
 ::  ║  🔥  Rxborn 0 Delay Tweaks  –  Pick-What-You-Want Menu        ║
-::  ║  Run as ADMIN.  Restore point created automatically.          ║
+::  ║  Save as .bat → Right-click → Run as ADMIN                   ║
 ::  ╚═══════════════════════════════════════════════════════════════╝
-title 🔥 Rxborn 0 Delay Tweaks
+title Rxborn 0 Delay Tweaks
 setlocal EnableExtensions EnableDelayedExpansion
 color 0B
 mode con: cols=75 lines=40
@@ -77,8 +77,7 @@ echo ⚙️  System tweaks…
 powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1
 powercfg -SETACTIVE e9a42b02-d5df-448d-aa00-03f14749eb61
 bcdedit /set useplatformclock false >nul 2>&1
-:: MSI mode (silent, restart needed)
-start "" /min /wait powershell -NoP -C "Get-WmiObject Win32_PNPEntity | Where {$_.Name -match 'NVIDIA|AMD|Intel|Gigabit|Realtek|Wireless'} | %% { $id = $_.PNPDeviceID; $reg = \"HKLM:\SYSTEM\CurrentControlSet\Enum\$id\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties\"; if (Test-Path $reg) { Set-ItemProperty -Path $reg -Name MSISupported -Value 1 -Force } }" 2>nul
+powershell -NoP -C "Get-WmiObject Win32_PNPEntity | Where {$_.Name -match 'NVIDIA|AMD|Intel|Gigabit|Realtek|Wireless'} | %% { $id = $_.PNPDeviceID; $reg = \"HKLM:\SYSTEM\CurrentControlSet\Enum\$id\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties\"; if (Test-Path $reg) { Set-ItemProperty -Path $reg -Name MSISupported -Value 1 -Force } }" 2>nul
 echo    ✔ Done.  (Restart later for MSI & HPET.)
 if not "%CH%"=="6" pause && goto :MENU
 
